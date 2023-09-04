@@ -97,7 +97,5 @@ public class FileA {
 
     public void setTypeStorage(String typeStorage) {
         this.typeStorage = typeStorage;
-    }
-    
-    
+    }    
 }

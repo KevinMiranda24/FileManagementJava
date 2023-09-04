@@ -23,7 +23,7 @@ public class FileDAL {
         int result;
         String sql;
         try (Connection conn = ComunDB.obtenerConexion();) {
-            sql = "INSERT INTO Files (NameFile, Extension, MimeType, CreationDate, Files, Url, TypeStorage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO Files (NameFile, Extension, MimeType, CreationDate, Filee, Url, TypeStorage) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement ps = ComunDB.createPreparedStatement(conn, sql)) {
                 ps.setString(1, file.getNameFile());
                 ps.setString(2, file.getExtension());
@@ -42,7 +42,7 @@ public class FileDAL {
         return result;
     }
      
-     public static int deleteFile(FileA file) throws Exception {
+    public static int deleteFile(FileA file) throws Exception {
     int result;
     String sql;
     try (Connection conn = ComunDB.obtenerConexion()) {
@@ -59,8 +59,8 @@ public class FileDAL {
     return result;
 }
 
-static int assignDataResultSet(FileA file, ResultSet resultSet, int index) throws Exception {
-    index++;
+static int assignDataResultSet(FileA file,  ResultSet resultSet, int index) throws Exception {
+    index++;                            
     file.setId(resultSet.getInt(index)); // index 1
     index++;
     file.setNameFile(resultSet.getString(index)); // index 2
@@ -94,7 +94,7 @@ private static void getData(PreparedStatement pPS, ArrayList<FileA> files) throw
  public static ArrayList<FileA> getAllFiles() throws Exception {
     ArrayList<FileA> files = new ArrayList<>();
     try (Connection conn = ComunDB.obtenerConexion()) {
-        String sql = "SELECT Id, NameFile, Extension, MimeType, CreationDate, Files, Url, TypeStorage FROM Files";
+        String sql = "SELECT Id, NameFile, Extension, MimeType, CreationDate, Filee, Url, TypeStorage FROM Files";
         try (PreparedStatement ps = ComunDB.createPreparedStatement(conn, sql)) {
             getData(ps, files);
         } catch (SQLException ex) {
@@ -155,7 +155,7 @@ private static void getData(PreparedStatement pPS, ArrayList<FileA> files) throw
 public static FileA getFileById(int fileId) throws Exception {
     FileA file = null;
     try (Connection conn = ComunDB.obtenerConexion()) {
-        String sql = "SELECT Id, NameFile, Extension, MimeType, CreationDate, Files, Url, TypeStorage FROM Files WHERE Id=?";
+        String sql = "SELECT Id, NameFile, Extension, MimeType, CreationDate, Filee, Url, TypeStorage FROM Files WHERE Id=?";
         try (PreparedStatement ps = ComunDB.createPreparedStatement(conn, sql)) {
             ps.setInt(1, fileId);
             ArrayList<FileA> files = new ArrayList<>();
@@ -176,7 +176,7 @@ public static FileA getFileById(int fileId) throws Exception {
     int result;
     String sql;
     try (Connection conn = ComunDB.obtenerConexion()) {
-        sql = "UPDATE Files SET NameFile=?, Extension=?, MimeType=?, CreationDate=?, Files=?, Url=?, TypeStorage=? WHERE Id=?";
+        sql = "UPDATE Files SET NameFile=?, Extension=?, MimeType=?, CreationDate=?, Filee=?, Url=?, TypeStorage=? WHERE Id=?";
         try (PreparedStatement ps = ComunDB.createPreparedStatement(conn, sql)) {
             ps.setString(1, file.getNameFile());
             ps.setString(2, file.getExtension());
